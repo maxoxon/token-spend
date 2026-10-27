@@ -1,0 +1,6 @@
+{
+  "name": "token-meter",
+  "version": "0.1.0",
+  "description": "Claude Code token spend panel: periods, models, projects, dollar equivalent at API prices",
+  "types": "./types/index.d.ts"
+}
