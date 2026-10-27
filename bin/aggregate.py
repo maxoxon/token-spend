@@ -15,19 +15,6 @@ OUT = os.path.join(HOME, '.claude', 'token-meter')
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def containers():
-    """Container folders that are not projects: the nested folder becomes the project.
-    Add your own as a list of strings in ~/.claude/token-meter/folders.json, e.g. ["Work/clients/"]."""
-    try:
-        extra = json.load(open(os.path.join(OUT, 'folders.json')))
-    except (OSError, ValueError):
-        extra = []
-    return [*extra, 'Desktop/', 'Documents/', 'Downloads/', 'Movies/', 'Music/']
-
-
-CONTAINERS = containers()
-
-
 def language():
     """'ru' or 'en': Claude Code's own `language` setting, then the system locale, else English."""
     def pick(v):
@@ -52,6 +39,7 @@ LANG = language()
 def scan(path):
     """-> {msg_id: (ts, model, cwd, in, out, cache_read, cc5m, cc1h)} of one file."""
     recs = {}
+    launch = ''
     try:
         f = open(path, encoding='utf-8', errors='replace')
     except OSError:
@@ -77,13 +65,15 @@ def scan(path):
             total_cc = u.get('cache_creation_input_tokens', 0) or 0
             if c1 + c5 < total_cc:
                 c5 += total_cc - c1 - c5
-            r = (d.get('timestamp', ''), m['model'], d.get('cwd') or '',
+            launch = launch or d.get('cwd') or ''
+            r = (d.get('timestamp', ''), m['model'], '',
                  u.get('input_tokens', 0) or 0, u.get('output_tokens', 0) or 0,
                  u.get('cache_read_input_tokens', 0) or 0, c5, c1)
             old = recs.get(mid)
             if old is None or r[4] >= old[4]:
                 recs[mid] = r
-    return path, recs
+    # the folder a session was opened in is its first cwd; later ones are subfolders it wandered into
+    return path, {k: (*v[:2], launch, *v[3:]) for k, v in recs.items()}
 
 
 def project_name(cwd, folder):
@@ -96,11 +86,7 @@ def project_name(cwd, folder):
         p = p.split('/.claude')[0]
     if p.startswith('/private/tmp') or p.startswith('/tmp'):
         return 'tmp (sandboxes)' if LANG == 'en' else 'tmp (песочницы)'
-    for pre in CONTAINERS:
-        if p.startswith(pre):
-            p = p[len(pre):]
-            break
-    return p.split('/')[0] or folder
+    return os.path.basename(p) or folder
 
 
 def price_for(model, prices):
@@ -125,7 +111,7 @@ def main():
             st = os.stat(p)
         except OSError:
             continue
-        key = (st.st_size, int(st.st_mtime))
+        key = (st.st_size, int(st.st_mtime), 2)  # 2: cwd is the launch folder
         if p in cache and cache[p][0] == key:
             keep[p] = cache[p]
         else:

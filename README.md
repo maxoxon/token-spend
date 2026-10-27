@@ -32,7 +32,7 @@ Needs `python3` on the PATH.
 
 Everything is computed locally from the transcripts in `~/.claude/projects`; nothing is sent anywhere. The result is kept in `~/.claude/token-meter/stats.json`. The dollar figure is an estimate at public API prices (`prices.json`), not a bill: a subscription is not charged this way. History starts at the oldest transcript you still have.
 
-A project is the first folder of the path under your home directory. `Desktop/`, `Documents/`, `Downloads/`, `Movies/` and `Music/` are skipped, so the folder inside becomes the project. To add your own container folders, create `~/.claude/token-meter/folders.json`, e.g. `["Work/clients/"]`.
+A project is the folder a session was opened in (its first working directory), shown by that folder's name.
 
 ## Check
 
