@@ -122,8 +122,9 @@ def main():
         with Pool(min(8, os.cpu_count() or 4)) as pool:
             for p, recs in pool.imap_unordered(scan, [p for p, _ in todo], chunksize=4):
                 keep[p] = (keys[p], recs)
-    pickle.dump(keep, open(cache_path + '.tmp', 'wb'))
-    os.replace(cache_path + '.tmp', cache_path)
+    tmp = f'.{os.getpid()}.tmp'  # per-process name: two runs at once (panel start + button) must not share one
+    pickle.dump(keep, open(cache_path + tmp, 'wb'))
+    os.replace(cache_path + tmp, cache_path)
 
     prices = json.load(open(os.path.join(HERE, '..', 'prices.json')))
     best = {}
@@ -159,8 +160,9 @@ def main():
         'lang': LANG, 'files': len(keep), 'turns': len(best), 'unpriced': unpriced,
         'rows': [list(k) + [round(v, 4) if n == 6 else v for n, v in enumerate(a)] for k, a in sorted(rows.items())],
     }
-    json.dump(out, open(os.path.join(OUT, 'stats.json.tmp'), 'w'), ensure_ascii=False, separators=(',', ':'))
-    os.replace(os.path.join(OUT, 'stats.json.tmp'), os.path.join(OUT, 'stats.json'))
+    stats_path = os.path.join(OUT, 'stats.json')
+    json.dump(out, open(stats_path + tmp, 'w'), ensure_ascii=False, separators=(',', ':'))
+    os.replace(stats_path + tmp, stats_path)
     print(f"files={len(keep)} rescanned={len(todo)} turns={len(best)} rows={len(rows)} "
           f"unpriced={unpriced} sec={time.time() - t0:.1f}")
 

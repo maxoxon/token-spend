@@ -95,7 +95,8 @@ export const register: Register = on => {
     const first = all[0]?.[0] ?? today
     const period = v.period
     // state survives a mod reload: an old record lacks these fields
-    const project = v.project ?? ''
+    // a project chosen before a rename (or never in the data) is dropped instead of showing an empty slice
+    const project = all.some(r => r[2] === v.project) ? v.project : ''
     const day = v.day ?? ''
     const draw = e.surface !== 'terminal'
     const cols = e.props?.bodyColumns ?? 52
