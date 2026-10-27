@@ -2,5 +2,10 @@
   "name": "token-meter",
   "version": "0.1.0",
   "description": "Claude Code token spend panel: periods, models, projects, dollar equivalent at API prices",
-  "types": "./types/index.d.ts"
+  "types": "./types/index.d.ts",
+  "author": {
+    "name": "maxoxon"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/maxoxon/token-meter"
 }
