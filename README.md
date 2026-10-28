@@ -34,6 +34,12 @@ Everything is computed locally from the transcripts in `~/.claude/projects`; not
 
 A project is the folder a session was opened in (its first working directory), shown by that folder's name.
 
+## What the mod runs and sends
+
+- **Sends nothing.** The mod makes no network calls and no model calls. The only data it reads is your own transcripts (`~/.claude/projects`) and its own output file; the only data it writes is `~/.claude/token-meter/` (`stats.json`, `cache.pkl`).
+- **Runs one program:** `python3 -I bin/aggregate.py` (the fixed command in `hooks/register.tsx`), when the panel opens, on `/tokens`, and on the "Recalculate" button. That script reads the transcripts and writes `stats.json`. On macOS it also calls `defaults read -g AppleLanguages` to pick the panel language; nothing else is started.
+- **Hooks:** `session.start` loads the saved numbers, registers `/tokens` and opens the panel; `command.run` handles `/tokens` only (it opens the panel and returns a one-line text); `ui.render` draws the panel. No tool call, prompt or file is intercepted or changed.
+
 ## Check
 
 ```
