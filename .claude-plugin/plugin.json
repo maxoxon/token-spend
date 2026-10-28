@@ -8,5 +8,16 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/maxoxon/token-spend",
-  "icon": "./.claude-plugin/icon.png"
+  "icon": "./.claude-plugin/icon.png",
+  "repository": "https://github.com/maxoxon/token-spend",
+  "keywords": [
+    "tokens",
+    "usage",
+    "cost",
+    "dashboard",
+    "panel",
+    "spend"
+  ],
+  "privacyPolicyUrl": "https://github.com/maxoxon/token-spend#privacy",
+  "supportUrl": "https://github.com/maxoxon/token-spend/issues"
 }

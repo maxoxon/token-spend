@@ -7,7 +7,12 @@
     {
       "name": "token-spend",
       "source": "./",
-      "description": "Token spend panel: periods, models, projects, dollar equivalent at API prices"
+      "description": "Token spend panel: periods, models, projects, dollar equivalent at API prices",
+      "category": "monitoring",
+      "homepage": "https://github.com/maxoxon/token-spend",
+      "author": {
+        "name": "maxoxon"
+      }
     }
   ],
   "description": "Token spend panel for Claude Code"
