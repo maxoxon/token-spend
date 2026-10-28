@@ -39,7 +39,7 @@ async function load($: any) {
 async function refresh($: any) {
   await update($, view, (v: View) => ({ ...v, busy: true, error: '' }))
   try {
-    const r = await $.process.run(['python3', '-I', `${$.plugin.root}/bin/aggregate.py`], { timeoutMs: 600000 })
+    const r = await $.process.run(['python3', '-I', 'bin/aggregate.py'], { cwd: $.plugin.root, timeoutMs: 600000 })
     if (r.exitCode !== 0) throw new Error(String(r.stderr).slice(-200))
     await load($)
     await update($, view, (v: View) => ({ ...v, busy: false }))
