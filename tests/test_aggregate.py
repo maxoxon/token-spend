@@ -22,7 +22,7 @@ class Aggregate(unittest.TestCase):
                 # the same message twice (the larger output wins), then one more turn from a subfolder
                 f.write('\n'.join([line('m1', 5, cwd='/home/dev/my-app'), line('m1', 50, cwd='/home/dev/my-app'),
                                    line('m2', 7, cwd='/home/dev/my-app/src')]) + '\n')
-            env = {**os.environ, 'HOME': home, 'LANG': 'en_US.UTF-8'}
+            env = {'HOME': home, 'LANG': 'en_US.UTF-8', 'PATH': os.defpath}  # a fixed environment, nothing inherited
             r = subprocess.run([sys.executable, '-I', os.path.join(ROOT, 'bin', 'aggregate.py')],
                                env=env, capture_output=True, text=True)
             self.assertEqual(r.returncode, 0, r.stderr)
