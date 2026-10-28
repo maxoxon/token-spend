@@ -16,6 +16,6 @@ export type View = { period: Period; project: string; day: string; busy: boolean
 
 declare module 'claude-code' {
   interface PluginState {
-    'token-meter': { stats: Stats | null; view: View }
+    'token-spend': { stats: Stats | null; view: View }
   }
 }

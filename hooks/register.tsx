@@ -8,8 +8,8 @@ import {
 } from './charts'
 
 const PANE = 'token-meter'
-const stats = atom({ plugin: 'token-meter', key: 'stats' } as const, null)
-const view = atom({ plugin: 'token-meter', key: 'view' } as const, {
+const stats = atom({ plugin: 'token-spend', key: 'stats' } as const, null)
+const view = atom({ plugin: 'token-spend', key: 'view' } as const, {
   period: 'week',
   project: '',
   day: '',

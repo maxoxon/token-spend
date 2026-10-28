@@ -1,4 +1,4 @@
-# token-meter
+# token-spend
 
 A token-spend panel for Claude Code: how much you spent today, over 7 days, a month and all time; which models and projects used the most; and what it would cost at API prices.
 
@@ -15,13 +15,13 @@ The panel speaks English or Russian, following Claude Code's `language` setting,
 In Claude Code:
 
 ```
-/plugin install token-meter --marketplace maxoxon/token-meter
+/plugin install token-spend --marketplace maxoxon/token-meter
 ```
 
 From a shell:
 
 ```
-claude plugin install token-meter --marketplace maxoxon/token-meter
+claude plugin install token-spend --marketplace maxoxon/token-meter
 ```
 
 In the Claude desktop app: "+" next to the prompt box → Plugins → Add marketplace → `maxoxon/token-meter` → Add plugin.
