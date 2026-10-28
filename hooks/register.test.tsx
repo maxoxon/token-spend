@@ -3,7 +3,7 @@ import { expect, test } from 'claude-code/testing'
 const PANE = {
   plugin: 'token-spend',
   component: 'Pane',
-  requestId: 'token-meter',
+  requestId: 'token-spend',
   props: {
     title: 'Token spend',
     isFocused: false,

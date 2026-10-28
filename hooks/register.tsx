@@ -7,7 +7,7 @@ import {
   modelsSvg, projectColors, setLang, shift, sumTok, sumUsd, t, ymd,
 } from './charts'
 
-const PANE = 'token-meter'
+const PANE = 'token-spend'
 const stats = atom({ plugin: 'token-spend', key: 'stats' } as const, null)
 const view = atom({ plugin: 'token-spend', key: 'view' } as const, {
   period: 'week',
@@ -32,7 +32,7 @@ const MAX_W = 1400
 const home = (root: string) => root.slice(0, root.indexOf('/.claude/'))
 
 async function load($: any) {
-  const text = await $.fs.read(`${home($.plugin.root)}/.claude/token-meter/stats.json`)
+  const text = await $.fs.read(`${home($.plugin.root)}/.claude/token-spend/stats.json`)
   await update($, stats, () => JSON.parse(text) as Stats)
 }
 

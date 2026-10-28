@@ -3,7 +3,7 @@
 
 A turn = message.id (a transcript line is often repeated): the record with the
 largest output_tokens wins. Per-file cache (size+mtime): a rerun reads only what
-changed. Result: ~/.claude/token-meter/stats.json (tokens and $ at API prices).
+changed. Result: ~/.claude/token-spend/stats.json (tokens and $ at API prices).
 """
 import glob, json, os, pickle, re, subprocess, sys, time
 from datetime import datetime
@@ -11,7 +11,7 @@ from multiprocessing import Pool
 
 HOME = os.path.expanduser('~')
 ROOT = os.path.join(HOME, '.claude', 'projects')
-OUT = os.path.join(HOME, '.claude', 'token-meter')
+OUT = os.path.join(HOME, '.claude', 'token-spend')
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
